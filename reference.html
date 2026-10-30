@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Atlas UI Reference</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one reading column of galleries and spec tables under a sticky section bar; the product's own Apple-light palette. */
+:root {
+  --bg: #F5F5F7; --surface: #FFFFFF; --ink: #1D1D1F; --ink-2: #424245; --ink-3: #86868B; --line: #E3E3E8; --accent: #2F5BFF; --red: #FF3B30; --ok: #248A3D;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Helvetica Neue", system-ui, sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, "Helvetica Neue", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: light;
+}
+body { background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(245,245,247,.9); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 80px; }
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: .86em; }
+.hero { padding-block: 56px 28px; display: grid; gap: 12px; }
+.eyebrow { font: 600 13px var(--font); color: var(--accent); }
+h1 { margin: 0; font: 700 clamp(36px, 6vw, 56px)/1.04 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+.lede { margin: 0; max-width: 64ch; font-size: 18px; color: var(--ink-2); text-wrap: pretty; }
+.links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 18px; }
+.link { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-radius: 18px; background: var(--surface); text-decoration: none; color: var(--ink); box-shadow: 0 0 0 .5px rgba(0,0,0,.06), 0 8px 24px -14px rgba(0,0,0,.18); transition: transform .15s ease; }
+.link:hover { transform: translateY(-1px); }
+.link b { font-size: 16px; } .link span { font-size: 13px; color: var(--ink-3); } .link em { font-style: normal; font-size: 13px; color: var(--accent); font-weight: 600; }
+nav.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-block: 10px; background: rgba(245,245,247,.88); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-bottom: .5px solid rgba(0,0,0,.08); }
+nav.bar a { flex: none; padding: 6px 13px; border-radius: 999px; font: 600 13.5px var(--font); color: var(--ink); text-decoration: none; background: rgba(0,0,0,.05); }
+nav.bar a:hover { background: rgba(0,0,0,.09); }
+section { padding-top: 40px; scroll-margin-top: 60px; }
+h2 { margin: 0 0 6px; font: 700 34px/1.1 var(--display); letter-spacing: -.03em; }
+h2 + p { margin: 0 0 18px; max-width: 70ch; color: var(--ink-2); }
+h3 { margin: 30px 0 12px; font: 650 20px var(--display); letter-spacing: -.015em; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); gap: 18px; }
+.grid.phones { grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); }
+figure { margin: 0; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.shot { all: unset; cursor: zoom-in; display: block; border-radius: 14px; overflow: hidden; background: var(--surface); box-shadow: 0 0 0 .5px rgba(0,0,0,.08), 0 10px 28px -16px rgba(0,0,0,.28); aspect-ratio: 16 / 10; }
+.phones .shot { aspect-ratio: 9 / 18; }
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.shot:focus-visible { outline: 3px solid rgba(47,91,255,.5); outline-offset: 3px; }
+figcaption { display: flex; flex-direction: column; gap: 2px; font-size: 13.5px; color: var(--ink-2); }
+figcaption b { font-size: 15px; color: var(--ink); } figcaption code { color: var(--ink-3); font-size: 12px; }
+.card { background: var(--surface); border-radius: 20px; padding: 20px 22px; box-shadow: 0 0 0 .5px rgba(0,0,0,.05), 0 8px 24px -16px rgba(0,0,0,.16); }
+.tw { overflow-x: auto; }
+table.t { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+.t th { text-align: left; font: 600 12px var(--font); color: var(--ink-3); padding: 8px 10px; border-bottom: .5px solid var(--line); }
+.t td { padding: 10px; border-bottom: .5px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.t td:first-child { color: var(--ink); min-width: 170px; }
+.t td small { display: block; color: var(--ink-3); font-size: 12px; }
+.t td b { font-weight: 600; }
+.pdot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 7px; background: var(--c); vertical-align: 0; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font: 600 11.5px/18px var(--font); color: #fff; background: var(--c); }
+.mut { color: var(--ink-3); }
+.ico { width: 28px; height: 28px; vertical-align: middle; margin-right: 8px; }
+.op { background: var(--surface); border-radius: 20px; padding: 20px 22px; margin-top: 16px; box-shadow: 0 0 0 .5px rgba(0,0,0,.05), 0 8px 24px -16px rgba(0,0,0,.16); }
+.op header { display: grid; gap: 4px; margin-bottom: 12px; }
+.op h4 { margin: 0; font: 650 19px var(--display); letter-spacing: -.012em; }
+.op header p { margin: 0; color: var(--ink-2); }
+.tag { font: 600 12px var(--font); color: var(--accent); }
+.opgrid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 22px; margin-bottom: 12px; }
+.opgrid h5 { margin: 0 0 8px; font: 600 13px var(--font); color: var(--ink-3); }
+.flow, .notes { margin: 0; padding-left: 18px; } .flow li, .notes li { margin: 3px 0; }
+.stages { margin: 6px 0 8px; padding-left: 18px; } .stages li { margin: 4px 0; list-style: none; margin-left: -18px; }
+.tok-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 10px; }
+.tok { display: grid; grid-template-columns: 34px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: var(--surface); box-shadow: 0 0 0 .5px rgba(0,0,0,.06); }
+.tok span { grid-row: 1 / 3; width: 34px; height: 34px; border-radius: 9px; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15); }
+.tok b { font-size: 13.5px; } .tok code { color: var(--ink-3); font-size: 12px; }
+.sw2 { display: inline-block; width: 22px; height: 22px; border-radius: 6px; margin-right: 8px; vertical-align: middle; }
+.icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 14px 8px; }
+.ic { align-items: center; text-align: center; } .ic img { width: 56px; height: 56px; } .ic figcaption { font-size: 12px; color: var(--ink-2); text-transform: none; }
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.rules .card h4 { margin: 0 0 8px; font: 650 16px var(--display); }
+.rules ul { margin: 0; padding-left: 18px; color: var(--ink-2); } .rules li { margin: 4px 0; }
+.foot { margin-top: 48px; font-size: 13px; color: var(--ink-3); }
+.lb { position: fixed; inset: 0; z-index: 40; display: grid; place-items: start center; overflow: auto; padding: max(24px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); background: rgba(20,20,22,.82); }
+.lb[hidden] { display: none; }
+.lb img { max-width: min(1440px, 100%); height: auto; border-radius: 12px; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.lb button { position: fixed; top: max(14px, env(safe-area-inset-top, 0px)); right: max(14px, env(safe-area-inset-right, 0px)); width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: var(--ink); font-size: 18px; cursor: pointer; }
+@media (max-width: 760px) { .opgrid { grid-template-columns: minmax(0, 1fr); } h2 { font-size: 28px; } .hero { padding-block: 32px 18px; } }
+@media (prefers-reduced-motion: reduce) { .link { transition: none; } }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">Atlas Blue Systems · latest designs and specs · Oct 29, 2026</span>
+    <h1>Atlas UI reference</h1>
+    <p class="lede">Every screen on the tenant side and the team side, the 3D hardware board, and the specs behind them: colours, icons, the circuit vocabulary, the nine wire protocols and how each failure looks to the team, the tenant and the visitor. All data is SAMPLE.</p>
+    <div class="links">
+      <a class="link" href="customer.html"><b>Atlas for Customers</b><span>Tenant view · Home, Automations, Website, Team, Locations, Inboxes, Activity</span><em>Open the live app ↗</em></a>
+      <a class="link" href="editor.html"><b>Atlas Circuit Editor</b><span>Team view · Studio, Circuits, Runs, Vendors, Red Team, UI kit</span><em>Open the live app ↗</em></a>
+      <a class="link" href="board.html"><b>Atlas Board</b><span>The 3D hardware view, all 10 operations and their failures</span><em>Open the live board ↗</em></a>
+    </div>
+  </header>
+  <nav class="bar" aria-label="Sections"><a href="#tenant">Tenant view</a><a href="#team">Team view</a><a href="#board">3D board</a><a href="#operations">Operations</a><a href="#specs">Specs</a><a href="#rules">Rules</a><a href="#open">Open items</a></nav>
+
+  <section id="tenant">
+    <h2>Tenant view</h2>
+    <p>What a business owner sees: Apple Home and Settings style, everything is a switch, plain words, and honest outcomes. Click any screen to see it full size.</p>
+    <h3>Every day</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-c-home.jpg" aria-label="Open Home full size"><img src="d-c-home.jpg" alt="Home" loading="lazy"></button>
+      <figcaption><b>Home</b><code>#home</code><span>Master switch, a Needs you card, Today numbers, the Cache tile for the main website, automation tiles you tap to switch, recent activity.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-home-failed.jpg" aria-label="Open Home when a publish fails full size"><img src="x-c-home-failed.jpg" alt="Home when a publish fails" loading="lazy"></button>
+      <figcaption><b>Home when a publish fails</b><code>#home</code><span>The Needs you card says what happened in plain words and offers the next step.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-activity.jpg" aria-label="Open Activity full size"><img src="d-c-activity.jpg" alt="Activity" loading="lazy"></button>
+      <figcaption><b>Activity</b><code>#activity</code><span>Every change with who and when. Problems are told truthfully: the team email didn’t go out but the lead is saved, with Resend. Retries that worked are not listed.</span></figcaption></figure></div><h3>Automations</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-c-automations.jpg" aria-label="Open Automations full size"><img src="d-c-automations.jpg" alt="Automations" loading="lazy"></button>
+      <figcaption><b>Automations</b><code>#automations</code><span>Each automation is a switch. Build your own or start from a template.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-automation.jpg" aria-label="Open An automation full size"><img src="d-c-automation.jpg" alt="An automation" loading="lazy"></button>
+      <figcaption><b>An automation</b><code>#automation-inquiries</code><span>What it does in one sentence, a switch per step, and what each block can and can’t do.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-create.jpg" aria-label="Open Build your own full size"><img src="d-c-create.jpg" alt="Build your own" loading="lazy"></button>
+      <figcaption><b>Build your own</b><code>#create</code><span>Three boxes: When, Atlas does, Then. Blocks only go in the box they belong to; Check it’s real is pinned and always on.</span></figcaption></figure></div><h3>Team and places</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-c-team.jpg" aria-label="Open Team full size"><img src="d-c-team.jpg" alt="Team" loading="lazy"></button>
+      <figcaption><b>Team</b><code>#team</code><span>People by location, with paused switches shown. Nothing is ever deleted by pausing.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-person.jpg" aria-label="Open A person full size"><img src="d-c-person.jpg" alt="A person" loading="lazy"></button>
+      <figcaption><b>A person</b><code>#person-maya</code><span>Per-location permission switches, access pause and resume, move between locations.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-roles.jpg" aria-label="Open Roles full size"><img src="d-c-roles.jpg" alt="Roles" loading="lazy"></button>
+      <figcaption><b>Roles</b><code>#roles</code><span>Edit a role and choose whether to update the people who have it.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-locations.jpg" aria-label="Open Locations full size"><img src="d-c-locations.jpg" alt="Locations" loading="lazy"></button>
+      <figcaption><b>Locations</b><code>#locations</code><span>Starting switches per location; add a location with “add me” off by default.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-inboxes.jpg" aria-label="Open Inboxes full size"><img src="d-c-inboxes.jpg" alt="Inboxes" loading="lazy"></button>
+      <figcaption><b>Inboxes</b><code>#inboxes</code><span>Who sees which inbox, separate from location access.</span></figcaption></figure></div><h3>Website and cache · new from the briefs</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-c-websites.jpg" aria-label="Open Websites full size"><img src="d-c-websites.jpg" alt="Websites" loading="lazy"></button>
+      <figcaption><b>Websites</b><code>#websites</code><span>Each website the business owns, with its live version and its own cache setting (Section 2: one Cache tile per website).</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-c-website.jpg" aria-label="Open A website full size"><img src="d-c-website.jpg" alt="A website" loading="lazy"></button>
+      <figcaption><b>A website</b><code>#website-main</code><span>Pending-change banner, the Cache tile (Faster pages switch, View, Publish), what visitors see when a connection fails, and sample controls.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-view-status.jpg" aria-label="Open Cache · View · Status full size"><img src="x-c-view-status.jpg" alt="Cache · View · Status" loading="lazy"></button>
+      <figcaption><b>Cache · View · Status</b><code>#website-main → View</code><span>Build and refresh steps for the current publish and a version timeline.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-view-settings.jpg" aria-label="Open Cache · View · Settings full size"><img src="x-c-view-settings.jpg" alt="Cache · View · Settings" loading="lazy"></button>
+      <figcaption><b>Cache · View · Settings</b><code>#website-main → View</code><span>Live versus pending settings, per-page overrides, per-feature switches, and the locked rules: form submissions, booking times, chat and calls always stay live; private pages never share HTML.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-view-usage.jpg" aria-label="Open Cache · View · Usage and cost full size"><img src="x-c-view-usage.jpg" alt="Cache · View · Usage and cost" loading="lazy"></button>
+      <figcaption><b>Cache · View · Usage and cost</b><code>#website-main → View</code><span>Measured figures only. Estimates say “Not available yet” until a provider and its cost are chosen (no invented bills).</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-site-building.jpg" aria-label="Open Publishing full size"><img src="x-c-site-building.jpg" alt="Publishing" loading="lazy"></button>
+      <figcaption><b>Publishing</b><code>#website-main</code><span>Publishing → Building pieces → Checking → Live. Visitors keep the old version until the new one is ready.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-site-failed.jpg" aria-label="Open Publish failed full size"><img src="x-c-site-failed.jpg" alt="Publish failed" loading="lazy"></button>
+      <figcaption><b>Publish failed</b><code>#website-main</code><span>“Version 11 didn’t build. Your site still shows version 10.” Retry rebuilds version 11, never a newer draft.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-site-waiting.jpg" aria-label="Open Waiting on storage full size"><img src="x-c-site-waiting.jpg" alt="Waiting on storage" loading="lazy"></button>
+      <figcaption><b>Waiting on storage</b><code>#website-main</code><span>“Saved, not applied yet. Retrying.” The live site is untouched.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-vis-taken.jpg" aria-label="Open Visitor · time just taken full size"><img src="x-c-vis-taken.jpg" alt="Visitor · time just taken" loading="lazy"></button>
+      <figcaption><b>Visitor · time just taken</b><code>What visitors see</code><span>Details kept, fresh times, a clear note. Never booked into a different time silently.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-vis-checking.jpg" aria-label="Open Visitor · checking a booking full size"><img src="x-c-vis-checking.jpg" alt="Visitor · checking a booking" loading="lazy"></button>
+      <figcaption><b>Visitor · checking a booking</b><code>What visitors see</code><span>The answer was lost on the way back. Atlas checks before allowing a resend, so nothing is booked twice.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-vis-updated.jpg" aria-label="Open Visitor · page updated full size"><img src="x-c-vis-updated.jpg" alt="Visitor · page updated" loading="lazy"></button>
+      <figcaption><b>Visitor · page updated</b><code>What visitors see</code><span>A newer version is live. The visitor refreshes when ready; their typing is kept.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-vis-cut.jpg" aria-label="Open Visitor · reply cut short full size"><img src="x-c-vis-cut.jpg" alt="Visitor · reply cut short" loading="lazy"></button>
+      <figcaption><b>Visitor · reply cut short</b><code>What visitors see</code><span>The chat keeps what arrived and offers Try again.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-c-vis-dropped.jpg" aria-label="Open Visitor · call dropped full size"><img src="x-c-vis-dropped.jpg" alt="Visitor · call dropped" loading="lazy"></button>
+      <figcaption><b>Visitor · call dropped</b><code>What visitors see</code><span>The voice call ends cleanly and can be started again.</span></figcaption></figure></div>
+    <h3>On a phone</h3><div class="grid phones"><figure><button class="shot" type="button" data-src="m-c-home.jpg" aria-label="Open Home full size"><img src="m-c-home.jpg" alt="Home on a phone" loading="lazy"></button><figcaption><b>Home</b><span>Phone</span></figcaption></figure><figure><button class="shot" type="button" data-src="m-c-website.jpg" aria-label="Open A website full size"><img src="m-c-website.jpg" alt="A website on a phone" loading="lazy"></button><figcaption><b>A website</b><span>Phone</span></figcaption></figure><figure><button class="shot" type="button" data-src="m-c-automations.jpg" aria-label="Open Automations full size"><img src="m-c-automations.jpg" alt="Automations on a phone" loading="lazy"></button><figcaption><b>Automations</b><span>Phone</span></figcaption></figure><figure><button class="shot" type="button" data-src="x-c-m-failed.jpg" aria-label="Open Publish failed full size"><img src="x-c-m-failed.jpg" alt="Publish failed on a phone" loading="lazy"></button><figcaption><b>Publish failed</b><span>Phone</span></figcaption></figure></div>
+  </section>
+
+  <section id="team">
+    <h2>Team view</h2>
+    <p>What the Atlas team sees: a Mac-style editor with floating glass toolbars, the node canvas in Studio, and the operations, runs, vendors and Red Team behind it.</p>
+    <h3>Atlas Studio</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-t-studio.jpg" aria-label="Open Studio canvas full size"><img src="d-t-studio.jpg" alt="Studio canvas" loading="lazy"></button>
+      <figcaption><b>Studio canvas</b><code>#builder</code><span>Floating glass toolbar, block library, node canvas: entry row, the Operation with its stages, modules, outbound runners and vendor doors. Wires carry their protocol.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-studio-ops.jpg" aria-label="Open Operation menu full size"><img src="x-t-studio-ops.jpg" alt="Operation menu" loading="lazy"></button>
+      <figcaption><b>Operation menu</b><code>#builder</code><span>Load any of the 10 operations from the briefs (or the sample). Undoable.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-studio-fail.jpg" aria-label="Open Failure on the canvas · slot just taken full size"><img src="x-t-studio-fail.jpg" alt="Failure on the canvas · slot just taken" loading="lazy"></button>
+      <figcaption><b>Failure on the canvas · slot just taken</b><code>#builder</code><span>Test run with a chosen failure: badges, rolled-back and skipped wires, a plain-words toast.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-studio-publish.jpg" aria-label="Open Failure on the canvas · build fails full size"><img src="x-t-studio-publish.jpg" alt="Failure on the canvas · build fails" loading="lazy"></button>
+      <figcaption><b>Failure on the canvas · build fails</b><code>#builder</code><span>Version 10 stays live; version 11 is marked failed.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-studio-board.jpg" aria-label="Open 3D board inside Studio full size"><img src="x-t-studio-board.jpg" alt="3D board inside Studio" loading="lazy"></button>
+      <figcaption><b>3D board inside Studio</b><code>#builder → 3D board</code><span>The same circuit as hardware. Studio’s Test run drives the board.</span></figcaption></figure></div><h3>Circuits from the briefs · new</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-t-circuits.jpg" aria-label="Open Circuits full size"><img src="d-t-circuits.jpg" alt="Circuits" loading="lazy"></button>
+      <figcaption><b>Circuits</b><code>#circuits</code><span>The 10 operations in three groups. Each strip shows inlet → runner → Product Outlet → operation → stages → doors, protocol-coloured wires, red locks and the answer back.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-circuit-fail.jpg" aria-label="Open A failure, played full size"><img src="x-t-circuit-fail.jpg" alt="A failure, played" loading="lazy"></button>
+      <figcaption><b>A failure, played</b><code>#circuits</code><span>Slot just taken: the transaction rolls back, nothing after it runs. Team sees / Tenant sees / Visitor sees, plus today versus the agreed target.</span></figcaption></figure></div><h3>The operation</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-t-overview.jpg" aria-label="Open Overview full size"><img src="d-t-overview.jpg" alt="Overview" loading="lazy"></button>
+      <figcaption><b>Overview</b><code>#overview</code><span>The circuit with its shapes, shared vocabulary, confirmed rules and open discussions.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-operation.jpg" aria-label="Open Operation circuit full size"><img src="d-t-operation.jpg" alt="Operation circuit" loading="lazy"></button>
+      <figcaption><b>Operation circuit</b><code>#operation</code><span>Entry band, stages, inspector; Circuit, Last run and Red Team plane views.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-releases.jpg" aria-label="Open Releases full size"><img src="d-t-releases.jpg" alt="Releases" loading="lazy"></button>
+      <figcaption><b>Releases</b><code>#releases</code><span>History, compare with draft, restore, readiness checks, Publish.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-settings.jpg" aria-label="Open Settings full size"><img src="d-t-settings.jpg" alt="Settings" loading="lazy"></button>
+      <figcaption><b>Settings</b><code>#operation-settings</code><span>Retry → fallback → on-failure policy with a failure branch.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-chain.jpg" aria-label="Open Chain editor full size"><img src="d-t-chain.jpg" alt="Chain editor" loading="lazy"></button>
+      <figcaption><b>Chain editor</b><code>#chain-editor</code><span>Rungs in order, fallback rules, per-rung mapping, preflight.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-modules.jpg" aria-label="Open Modules full size"><img src="d-t-modules.jpg" alt="Modules" loading="lazy"></button>
+      <figcaption><b>Modules</b><code>#modules</code><span>Library and record references: stage use → deployment → version → module; deployment → host.</span></figcaption></figure></div><h3>Runs</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-t-runs.jpg" aria-label="Open Runs full size"><img src="d-t-runs.jpg" alt="Runs" loading="lazy"></button>
+      <figcaption><b>Runs</b><code>#runs</code><span>Health strip, saved views, runs table.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-run.jpg" aria-label="Open A run full size"><img src="d-t-run.jpg" alt="A run" loading="lazy"></button>
+      <figcaption><b>A run</b><code>#run-r-8F2K</code><span>Attempts, rung fallback with the reason, Red Team decisions in line, partial completion.</span></figcaption></figure></div><h3>Vendors · team only</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-t-vendors.jpg" aria-label="Open Vendor racks full size"><img src="d-t-vendors.jpg" alt="Vendor racks" loading="lazy"></button>
+      <figcaption><b>Vendor racks</b><code>#vendors</code><span>Spent, billed and margin; where the spend goes; needs attention; one server-rack cabinet per vendor with its doors as 1U units.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-rack-close.jpg" aria-label="Open A rack full size"><img src="x-t-rack-close.jpg" alt="A rack" loading="lazy"></button>
+      <figcaption><b>A rack</b><code>#vendors</code><span>Monitoring unit with the vendor’s numbers; each door with its status light, path, spend and share.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-vendor-r2.jpg" aria-label="Open Server view full size"><img src="d-t-vendor-r2.jpg" alt="Server view" loading="lazy"></button>
+      <figcaption><b>Server view</b><code>#vendor-cloudflare-r2</code><span>Used by → Atlas ledger → the rack → door cards, wires as thick as each door’s share of spend.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-door-sheet.jpg" aria-label="Open Inside a door full size"><img src="x-t-door-sheet.jpg" alt="Inside a door" loading="lazy"></button>
+      <figcaption><b>Inside a door</b><code>#vendors → a door</code><span>Spend, billed, margin, per call, daily chart, usage and ceiling, prices, connection, used by, recent calls.</span></figcaption></figure></div><h3>Atlas Red Team</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-t-redteam.jpg" aria-label="Open Red Team full size"><img src="d-t-redteam.jpg" alt="Red Team" loading="lazy"></button>
+      <figcaption><b>Red Team</b><code>#red-team</code><span>The plane, recent decisions, enforcement points.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-rt-grants.jpg" aria-label="Open Grants full size"><img src="d-t-rt-grants.jpg" alt="Grants" loading="lazy"></button>
+      <figcaption><b>Grants</b><code>#red-team-grants</code><span>I / G / P switches; P only when I and G are on, off by default.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="d-t-rt-offices.jpg" aria-label="Open Offices and pause full size"><img src="d-t-rt-offices.jpg" alt="Offices and pause" loading="lazy"></button>
+      <figcaption><b>Offices and pause</b><code>#red-team-offices</code><span>Pause a scoped set; resume exactly, apply new, or edit then resume.</span></figcaption></figure></div><h3>UI kit</h3><div class="grid ">
+    <figure><button class="shot" type="button" data-src="d-t-kit.jpg" aria-label="Open UI kit full size"><img src="d-t-kit.jpg" alt="UI kit" loading="lazy"></button>
+      <figcaption><b>UI kit</b><code>#kit</code><span>Every component in its main states.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="x-t-kit-protocols.jpg" aria-label="Open Protocols and door kinds full size"><img src="x-t-kit-protocols.jpg" alt="Protocols and door kinds" loading="lazy"></button>
+      <figcaption><b>Protocols and door kinds</b><code>#kit</code><span>The 9 wire protocols and 7 door kinds as they appear everywhere.</span></figcaption></figure></div>
+    <h3>On a phone</h3><div class="grid phones"><figure><button class="shot" type="button" data-src="m-t-studio.jpg" aria-label="Open Studio full size"><img src="m-t-studio.jpg" alt="Studio on a phone" loading="lazy"></button><figcaption><b>Studio</b><span>Phone</span></figcaption></figure><figure><button class="shot" type="button" data-src="m-t-circuits.jpg" aria-label="Open Circuits full size"><img src="m-t-circuits.jpg" alt="Circuits on a phone" loading="lazy"></button><figcaption><b>Circuits</b><span>Phone</span></figcaption></figure><figure><button class="shot" type="button" data-src="m-t-vendors.jpg" aria-label="Open Vendor racks full size"><img src="m-t-vendors.jpg" alt="Vendor racks on a phone" loading="lazy"></button><figcaption><b>Vendor racks</b><span>Phone</span></figcaption></figure></div>
+  </section>
+
+  <section id="board">
+    <h2>3D board</h2>
+    <p>The circuit as real hardware, rendered live in the browser (WebGL2, no libraries). Every object stands for one thing and every connector carries one thing. Calls run in blue, results come back in green.</p>
+    <div class="grid ">
+    <figure><button class="shot" type="button" data-src="b-hero-contact.jpg" aria-label="Open The sample, as hardware full size"><img src="b-hero-contact.jpg" alt="The sample, as hardware" loading="lazy"></button>
+      <figcaption><b>The sample, as hardware</b><span>Aluminium box = Atlas. Graphite board = Atlas’s own (Product Outlet, Red Team). Blue board = the Operation. Cards = modules, labels = versions, boxes outside = vendor doors.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-pins.jpg" aria-label="Open Inlets and outlets full size"><img src="b-pins.jpg" alt="Inlets and outlets" loading="lazy"></button>
+      <figcaption><b>Inlets and outlets</b><span>Every part prints its pads: In, Out, red Check, Runs, Reach out, Rung n. Every trace starts and ends on a pad.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-inspector.jpg" aria-label="Open Inspector full size"><img src="b-inspector.jpg" alt="Inspector" loading="lazy"></button>
+      <figcaption><b>Inspector</b><span>What the object is on the board, then its inlets and outlets built from the real wires.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-deny.jpg" aria-label="Open Red Team denies full size"><img src="b-deny.jpg" alt="Red Team denies" loading="lazy"></button>
+      <figcaption><b>Red Team denies</b><span>A red shutter drops after the gateway; nothing downstream runs; the Result light shows refused.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-hero-booking.jpg" aria-label="Open Booking full size"><img src="b-hero-booking.jpg" alt="Booking" loading="lazy"></button>
+      <figcaption><b>Booking</b><span>Database box (SQL transaction ring), live delivery puck (WSS heartbeat), email vendor boxes.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-fail-slot.jpg" aria-label="Open Slot just taken full size"><img src="b-fail-slot.jpg" alt="Slot just taken" loading="lazy"></button>
+      <figcaption><b>Slot just taken</b><span>Conflict: the transaction ring flashes red and a rollback pulse returns. Nothing committed.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-hero-publish.jpg" aria-label="Open Publish and build full size"><img src="b-hero-publish.jpg" alt="Publish and build" loading="lazy"></button>
+      <figcaption><b>Publish and build</b><span>Output store box with hit/miss lights; release activation over live delivery.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-fail-build.jpg" aria-label="Open Build fails full size"><img src="b-fail-build.jpg" alt="Build fails" loading="lazy"></button>
+      <figcaption><b>Build fails</b><span>The build card goes red; the device shows “v10 still live”.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-hero-chat.jpg" aria-label="Open Chat full size"><img src="b-hero-chat.jpg" alt="Chat" loading="lazy"></button>
+      <figcaption><b>Chat</b><span>The reply streams back (SSE) from the AI vendor.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-fail-stream.jpg" aria-label="Open Stream cut short full size"><img src="b-fail-stream.jpg" alt="Stream cut short" loading="lazy"></button>
+      <figcaption><b>Stream cut short</b><span>The stream stops midway; the partial reply is kept; no provider switch.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-hero-collab.jpg" aria-label="Open Edit together full size"><img src="b-hero-collab.jpg" alt="Edit together" loading="lazy"></button>
+      <figcaption><b>Edit together</b><span>Room lease on the outlet; other editors as a row of screens.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-fail-takeover.jpg" aria-label="Open Same person opens it twice full size"><img src="b-fail-takeover.jpg" alt="Same person opens it twice" loading="lazy"></button>
+      <figcaption><b>Same person opens it twice</b><span>The old tab is fenced off; everyone else keeps editing.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-fail-drop.jpg" aria-label="Open Live connection drops full size"><img src="b-fail-drop.jpg" alt="Live connection drops" loading="lazy"></button>
+      <figcaption><b>Live connection drops</b><span>The WSS light dies; on reconnect the browser catches up to the current release.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-phone.jpg" aria-label="Open Board on a phone full size"><img src="b-phone.jpg" alt="Board on a phone" loading="lazy"></button>
+      <figcaption><b>Board on a phone</b><span>Portrait layout: the same parts stacked, labels kept readable.</span></figcaption></figure></div>
+    <h3>What each object is</h3>
+    <div class="card tw"><table class="t"><thead><tr><th>Object</th><th>Stands for</th><th>Its connectors</th></tr></thead><tbody>
+      <tr><td>Aluminium box</td><td>Atlas. Inside: in-process traces. Through the wall: network cables.</td><td>Front port (HTTPS in), back ports (one per outbound rung)</td></tr>
+      <tr><td>Device on the desk</td><td>Where the request starts (the tenant’s site, the editor, the dashboard)</td><td>Button = Inlet, chip = Request runner (one light per rung), Result light + small display</td></tr>
+      <tr><td>Graphite board</td><td>Atlas’s own board</td><td>Product Outlet gateway (In, Out, red Check; gate lights identity · data · access), Server runner, Atlas Red Team chip</td></tr>
+      <tr><td>Blue board</td><td>The Operation</td><td>Edge connectors In and Check; contract chip (In, Out, Check); numbered slots = stages (In, Out, Runs, Reach out, Check)</td></tr>
+      <tr><td>Card / its label</td><td>Module (or Variant) / Module version (record reference)</td><td>Gold contacts in the slot</td></tr>
+      <tr><td>Network chip</td><td>Outbound runner</td><td>In, Rung 1…n to the back ports</td></tr>
+      <tr><td>Boxes outside</td><td>Vendor doors by kind: vendor slab, database (stacked discs), store (drive bays), live delivery (puck), voice room, host, open screens</td><td>Their port, cabled by protocol</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section id="operations">
+    <h2>Operations from the briefs</h2>
+    <p>The ten circuits in the shared operations contract, from the Public Website Cache brief (A–K), Section 2 and Section 3. The same data drives the Circuits page, Studio and the 3D board. Proposed designs are not claims that they are built.</p>
+    <article class="op" id="op-contact">
+    <header><span class="tag">Brief G</span><h4>Submit a contact form</h4><p>A visitor sends the contact form. Atlas checks it, saves the lead, then emails the team.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Contact form · Send → <b>Request runner</b> Browser</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Contact API</li>
+        <li><b>Operation</b> Submit a contact form, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Check the form is real</b> <span class="mut">runs public-guards</span></li><li><b>2. Save the lead</b> <span class="mut">runs lead-writer</span> <span class="pill" style="--c:#5E6470">Database (SQL)</span> → Neon · database <span class="mut">(The database)</span></li><li><b>3. Email the team</b> <span class="mut">runs send-email</span> <span class="pill" style="--c:#2F5BFF">HTTPS</span> → Resend <span class="mut">(A vendor’s endpoint)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#2F5BFF">HTTPS</span> Thanks message (never cached)</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>The contact path checks the live form, consent and limits, saves the lead and contact records in one transaction, then sends mail.</li><li>Early refusals have no operation receipt yet; adding durable outcome receipts is agreed work.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Email can’t be sent</b><small>HTTPS · Every rung fails</small></td><td>The lead was already saved (mail runs after the commit), so the stage fails but the lead is kept.</td><td>The new lead is in the inbox. Activity says the team email didn’t go out and offers to resend it.</td><td>Sees “Thanks, we got your message.”</td></tr><tr><td><b>Answer lost on the way back</b><small>HTTPS · Unknown outcome: check before sending again</small></td><td>The lead may already be saved. Atlas checks before allowing a second send, so the same submission is never saved twice.</td><td>One lead, not two.</td><td>Sees “Checking…” then the thanks message, without retyping.</td></tr><tr><td><b>Form refused at the door</b><small>Permission check · Denied by Red Team: stops at once</small></td><td>The outlet’s guards refuse it (form closed, consent missing or over the limit). Nothing is saved.</td><td>Nothing new to do. Activity counts the refusals.</td><td>Sees a clear message saying why it wasn’t sent.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-booking">
+    <header><span class="tag">Brief H</span><h4>Offer and book an appointment</h4><p>A visitor picks an office and a time. Atlas re-checks the slot inside the booking transaction.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Booking form · Confirm → <b>Request runner</b> Browser</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Schedule API</li>
+        <li><b>Operation</b> Book an appointment, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Re-check the offer</b> <span class="mut">runs schedule-offer</span></li><li><b>2. Lead + booking, one transaction</b> <span class="mut">runs booking-writer</span> <span class="pill" style="--c:#5E6470">Database (SQL)</span> → Neon · database <span class="mut">(The database)</span></li><li><b>3. Tell other open forms</b> <span class="mut">runs availability-signal</span> <span class="pill" style="--c:#5856D6">Live (WSS)</span> → Live delivery <span class="mut">(Live delivery service)</span></li><li><b>4. Send the confirmation</b> <span class="mut">runs send-email</span> <span class="pill" style="--c:#2F5BFF">HTTPS</span> → Resend <span class="mut">(A vendor’s endpoint)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#2F5BFF">HTTPS</span> Confirmed, or “that time was just taken”</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>The booking transaction already locks the office calendar and re-checks overlap.</li><li>Live availability signals to other open forms are agreed work (Section 3).</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Slot just taken</b><small>Database (SQL) · Conflict: the transaction rolls back</small></td><td>The overlap check finds the slot taken and the whole transaction rolls back. No fallback: a taken slot stops the path.</td><td>No booking is made. Nothing to fix.</td><td>Keeps their details, sees fresh times and a note that the time was just taken. Never booked into a different time silently.</td></tr><tr><td><b>Answer lost after booking</b><small>HTTPS · Unknown outcome: check before sending again</small></td><td>The booking may have committed. Atlas checks first; a resend is only allowed if it didn’t.</td><td>One booking, not two.</td><td>Sees “Checking your booking…”, then the confirmation.</td></tr><tr><td><b>Live signal drops</b><small>Live (WSS) · Connection drops: reconnect and catch up</small></td><td>Other open forms miss the signal. On reconnect they read fresh availability; the booking itself is unaffected.</td><td>Nothing to do.</td><td>Other visitors see updated times after reconnecting.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-publish">
+    <header><span class="tag">Brief C · S2-05</span><h4>Publish and build the site</h4><p>An editor publishes. Atlas commits the version, rebuilds only the affected pieces, then activates the ready page.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Publish button → <b>Request runner</b> Editor</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Publish API</li>
+        <li><b>Operation</b> Publish and build, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Commit the public version</b> <span class="mut">runs page-version</span></li><li><b>2. Build affected pieces</b> <span class="mut">runs node-renderer</span> <span class="pill" style="--c:#8E96A4">Store adapter</span> → Output store <span class="mut">(An output store)</span></li><li><b>3. Assemble and verify</b> <span class="mut">runs page-assembler</span></li><li><b>4. Activate the release</b> <span class="mut">runs release-activator</span> <span class="pill" style="--c:#5856D6">Live (WSS)</span> → Live delivery <span class="mut">(Live delivery service)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#2F5BFF">HTTPS</span> Published, building, or failed (old version still live)</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>Today Save replaces the draft and Publish freezes a page version; the node-HTML pipeline and durable refresh are agreed new work.</li><li>Recoverable draft history is an agreed addition (Section 2).</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Build fails</b><small>In-process · Build fails: the last good release stays live</small></td><td>Version 10 stays active. Version 11 is marked failed and visible. Retry rebuilds version 11, not whichever draft is newest.</td><td>Website tile: “Version 11 didn’t build. Your site still shows version 10.” with Retry.</td><td>Keeps seeing version 10.</td></tr><tr><td><b>An older build finishes late</b><small>In-process · A late older build is refused</small></td><td>Version 11 finishes after version 12 is already live. Activation refuses it: an older build never replaces a newer release.</td><td>Nothing changes; the newer version stays live.</td><td>Keeps seeing the newer version.</td></tr><tr><td><b>Output store is down</b><small>Store adapter · Store unavailable: build fresh or keep the last good release</small></td><td>Pieces can’t be saved. Nothing is activated; the last good release keeps serving.</td><td>Website tile: “Publishing is waiting on storage. Your site still shows version 10.”</td><td>Keeps seeing version 10.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-serve">
+    <header><span class="tag">Brief D</span><h4>Serve a website page</h4><p>A visitor opens a page. Atlas returns ready HTML on a hit, or assembles it from cached and fresh pieces on a miss.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Visitor opens a page → <b>Request runner</b> Browser</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Public site</li>
+        <li><b>Operation</b> Serve a page, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Resolve the website</b> <span class="mut">runs site-resolver</span> <span class="pill" style="--c:#5E6470">Database (SQL)</span> → Neon · database <span class="mut">(The database)</span></li><li><b>2. Look up the page</b> <span class="mut">runs page-cache</span> <span class="pill" style="--c:#8E96A4">Store adapter</span> → Output store <span class="mut">(An output store)</span></li><li><b>3. Render changed pieces</b> <span class="mut">runs node-renderer</span></li><li><b>4. Assemble the response</b> <span class="mut">runs page-assembler</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#2F5BFF">HTTPS</span> Ready HTML + interaction shell</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>Pages render today and are sent as no-store; a two-layer page and piece cache is agreed new work.</li><li>Private, personalised and live results always bypass shared HTML.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Cache miss</b><small>Store adapter · Cache miss: reuse what’s valid, render the rest</small></td><td>Not an error: unchanged pieces are reused and only missing ones are rendered.</td><td>Nothing to do. The Cache view counts misses.</td><td>Gets the page, a little slower.</td></tr><tr><td><b>Store unavailable</b><small>Store adapter · Store unavailable: build fresh or keep the last good release</small></td><td>The store read fails. Atlas renders the page fresh and records the store failure.</td><td>Cache view: “Storage had a problem; pages were built fresh.”</td><td>Gets the page.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-cache-policy">
+    <header><span class="tag">Brief A · S2-01</span><h4>Change a website’s cache setting</h4><p>The owner changes the website’s cache switch and publishes. Atlas validates it, records the revision and refreshes affected output.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Cache tile · switch + Publish → <b>Request runner</b> Dashboard</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Settings API</li>
+        <li><b>Operation</b> Update cache policy, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Validate and commit the setting</b> <span class="mut">runs policy-writer</span> <span class="pill" style="--c:#5E6470">Database (SQL)</span> → Neon · database <span class="mut">(The database)</span></li><li><b>2. Find affected pages</b> <span class="mut">runs dependency-index</span></li><li><b>3. Apply to serving</b> <span class="mut">runs serving-adapter</span> <span class="pill" style="--c:#8E96A4">Store adapter</span> → Output store <span class="mut">(An output store)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#2F5BFF">HTTPS</span> Pending, ready or failed</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>Cache controls move from the domain screen to a Cache tile on each website (agreed).</li><li>Hard privacy and freshness rules stay binding whatever the owner picks.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Owner can’t change this</b><small>Permission check · Denied by Red Team: stops at once</small></td><td>Red Team denies the configuration change for this person. Nothing is committed.</td><td>The switch explains who can change it.</td><td>Unaffected.</td></tr><tr><td><b>Serving update fails</b><small>Store adapter · Store unavailable: build fresh or keep the last good release</small></td><td>The setting is committed but not applied. It stays pending and retries the same revision.</td><td>Cache tile: “Saved, not applied yet. Retrying.”</td><td>Unaffected; pages keep working.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-chat">
+    <header><span class="tag">Brief I</span><h4>Text chat: stream a reply</h4><p>A visitor sends a chat message. Atlas checks it, loads the conversation, and streams the reply.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Chat · Send → <b>Request runner</b> Chat widget</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Chat API</li>
+        <li><b>Operation</b> Stream a chat turn, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Load template and history</b> <span class="mut">runs conversation-loader</span> <span class="pill" style="--c:#5E6470">Database (SQL)</span> → Neon · database <span class="mut">(The database)</span></li><li><b>2. Write the reply</b> <span class="mut">runs ai-reply</span> <span class="pill" style="--c:#30B0C7">Stream (SSE)</span> → OpenAI <span class="mut">(A vendor’s endpoint)</span></li><li><b>3. Save the turn</b> <span class="mut">runs turn-writer</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#30B0C7">Stream (SSE)</span> Reply streamed to the visitor</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>The chat route validates the conversation, saves turns and streams with no-cache headers; explicit no-store is recommended.</li><li>The provider chain does not switch providers after streaming begins.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Stream stops partway</b><small>Stream (SSE) · Stream cut short: keep what arrived</small></td><td>The reply had started, so the provider is not switched. What arrived is saved; the turn is marked cut short.</td><td>The conversation shows the partial reply, labelled.</td><td>Sees what arrived and a “Try again” button.</td></tr><tr><td><b>Provider doesn’t answer</b><small>HTTPS · No answer in time; retry, then the next rung</small></td><td>Nothing has streamed yet, so the chain may fall back to rung 2.</td><td>Nothing to do.</td><td>Gets a reply, a moment later.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-voice">
+    <header><span class="tag">Brief J</span><h4>Voice conversation</h4><p>A visitor taps Talk. Atlas issues a private room token, dispatches the voice agent, and runs the live audio.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Talk button → <b>Request runner</b> Voice widget</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Voice token API</li>
+        <li><b>Operation</b> Start a voice conversation, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Issue a room token</b> <span class="mut">runs room-token</span></li><li><b>2. Dispatch the voice agent</b> <span class="mut">runs voice-agent</span> <span class="pill" style="--c:#2F5BFF">HTTPS</span> → LiveKit <span class="mut">(A vendor’s endpoint)</span></li><li><b>3. Live voice</b> <span class="mut">runs voice-pipeline</span> <span class="pill" style="--c:#AF52DE">Voice (WebRTC)</span> → LiveKit room <span class="mut">(A voice room)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#AF52DE">Voice (WebRTC)</span> Private live audio</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>The voice client, token API and agent exist in source; company-site mounting and host readiness need proof.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Audio connection drops</b><small>Voice (WebRTC) · Connection drops: reconnect and catch up</small></td><td>The room ends cleanly. The conversation record keeps what was said; no token or audio ever enters shared HTML.</td><td>The conversation shows it ended early.</td><td>Sees “Call dropped” and can start again.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-live-refresh">
+    <header><span class="tag">Brief S3-01</span><h4>Update an open page</h4><p>After a release activates, open browsers get a signal and fetch only the changed parts, keeping forms and playback.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Release activated → <b>Request runner</b> Atlas</li>
+        <li><span class="pill" style="--c:#C9A15A">In-process</span> into <b>Product Outlet</b> Live delivery</li>
+        <li><b>Operation</b> Refresh open pages, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Send the change signal</b> <span class="mut">runs event-envelope</span> <span class="pill" style="--c:#5856D6">Live (WSS)</span> → Open browsers <span class="mut">(Open browser screens)</span></li><li><b>2. Fetch changed output</b> <span class="mut">runs safe-apply</span> <span class="pill" style="--c:#2F5BFF">HTTPS</span> → Public site <span class="mut">(A hosting provider)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#5856D6">Live (WSS)</span> Page updated in place</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>Public pages are sent no-store today; live public patching is new work. A signal tells the browser something changed; it is not permission to read private content.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Live connection drops</b><small>Live (WSS) · Connection drops: reconnect and catch up</small></td><td>Messages may be missed. On reconnect the browser asks for the current release instead of assuming every message arrived.</td><td>Nothing to do.</td><td>The page catches up after reconnecting. A form they were filling in is kept.</td></tr><tr><td><b>Change would interrupt the visitor</b><small>In-process · Unsafe to apply now: offer a refresh instead</small></td><td>Replacing the section would wipe an active form. The update waits and offers a clear refresh instead.</td><td>Nothing to do.</td><td>Sees “This page was updated · Refresh when ready”. Their typing is kept.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-collab">
+    <header><span class="tag">Brief S3-03 · S3-04</span><h4>Edit together</h4><p>Editors change a page together. Atlas checks the room lease, applies accepted edits and shares them with the others.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> An edit in /editor → <b>Request runner</b> Editor</li>
+        <li><span class="pill" style="--c:#5856D6">Live (WSS)</span> into <b>Product Outlet</b> Editing outlet · room lease</li>
+        <li><b>Operation</b> Apply a shared edit, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Check lease and locks</b> <span class="mut">runs room-lease</span></li><li><b>2. Merge into the shared document</b> <span class="mut">runs shared-doc</span> <span class="pill" style="--c:#5E6470">Database (SQL)</span> → Neon · database <span class="mut">(The database)</span></li><li><b>3. Share with other editors</b> <span class="mut">runs change-delivery</span> <span class="pill" style="--c:#5856D6">Live (WSS)</span> → Other editors <span class="mut">(Open browser screens)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#5856D6">Live (WSS)</span> Edit accepted and shared</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>Today the editor batches whole-tree autosaves after 1.5 s and asks for a reload on conflicts; shared editing, presence and the room lease are new work.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>Same person opens it twice</b><small>Permission check · Second session: take over, the old one is fenced off</small></td><td>The new tab asks to take over. After takeover the old tab’s edits are rejected; other people keep editing.</td><td>Editor shows “You opened this page in another tab · Take over here”.</td><td>Unaffected.</td></tr><tr><td><b>Edit to a locked block</b><small>Permission check · Denied by Red Team: stops at once</small></td><td>Denied or node-locked changes never enter the shared document.</td><td>The block explains it is locked by the library.</td><td>Unaffected.</td></tr><tr><td><b>Editor goes offline</b><small>Live (WSS) · Connection drops: reconnect and catch up</small></td><td>Unsent edits are kept locally and sent on reconnect without duplicating commands.</td><td>Editor shows “Not saved yet · reconnecting”. Never shows Saved before it is durable.</td><td>Unaffected.</td></tr></tbody></table></div>
+  </article><article class="op" id="op-host-switch">
+    <header><span class="tag">Brief F</span><h4>Switch the website host</h4><p>Staff move a domain to a verified host. Atlas preflights, probes the target, and puts things back if the probe fails.</p></header>
+    <div class="opgrid">
+      <div><h5>Inlets and outlets</h5><ul class="flow">
+        <li><b>Inlet</b> Domain card · Switch host → <b>Request runner</b> Dashboard</li>
+        <li><span class="pill" style="--c:#2F5BFF">HTTPS</span> into <b>Product Outlet</b> Domain settings</li>
+        <li><b>Operation</b> Switch host, stages in order:</li></ul>
+        <ol class="stages"><li><b>1. Preflight domain and DNS</b> <span class="mut">runs host-preflight</span></li><li><b>2. Probe the new host</b> <span class="mut">runs host-probe</span> <span class="pill" style="--c:#2F5BFF">HTTPS</span> → Cloudflare <span class="mut">(A hosting provider)</span></li><li><b>3. Commit host and receipt</b> <span class="mut">runs host-commit</span> <span class="pill" style="--c:#5E6470">Database (SQL)</span> → Neon · database <span class="mut">(The database)</span></li></ol>
+        <p class="mut">Answer back: <span class="pill" style="--c:#2F5BFF">HTTPS</span> Switched, or put back</p></div>
+      <div><h5>Today and the agreed target</h5><ul class="notes"><li>Host switching is per domain today with readiness checks and recovery steps; it does not move the database, chat or voice services.</li></ul></div>
+    </div>
+    <div class="tw"><table class="t fails"><thead><tr><th>Failure</th><th>Team sees</th><th>Tenant sees</th><th>Visitor sees</th></tr></thead><tbody><tr><td><b>New host doesn’t answer</b><small>HTTPS · Probe fails: put everything back</small></td><td>The probe fails. Put-back steps restore the previous routing and record a receipt; nothing is half-switched.</td><td>Domain card: “Couldn’t switch. Your site is still on the old host.”</td><td>Keeps reaching the site.</td></tr></tbody></table></div>
+  </article>
+  </section>
+
+  <section id="specs">
+    <h2>Specs</h2>
+    <p>The design language both apps share.</p>
+    <h3>Colour tokens</h3><div class="tok-grid"><div class="tok"><span style="background:#F5F5F7"></span><b>Background</b><code>#F5F5F7</code></div><div class="tok"><span style="background:#FFFFFF"></span><b>Surface</b><code>#FFFFFF</code></div><div class="tok"><span style="background:#1D1D1F"></span><b>Ink</b><code>#1D1D1F</code></div><div class="tok"><span style="background:#424245"></span><b>Ink 2</b><code>#424245</code></div><div class="tok"><span style="background:#86868B"></span><b>Ink 3</b><code>#86868B</code></div><div class="tok"><span style="background:#E3E3E8"></span><b>Hairline</b><code>#E3E3E8</code></div><div class="tok"><span style="background:#2F5BFF"></span><b>Atlas Blue (the one accent)</b><code>#2F5BFF</code></div><div class="tok"><span style="background:#FF3B30"></span><b>Red Team red (only Red Team)</b><code>#FF3B30</code></div><div class="tok"><span style="background:#34C759"></span><b>Switch on</b><code>#34C759</code></div><div class="tok"><span style="background:#FF9F0A"></span><b>Warning</b><code>#FF9F0A</code></div><div class="tok"><span style="background:#1E1E20"></span><b>Rack graphite</b><code>#1E1E20</code></div><div class="tok"><span style="background:#172B52"></span><b>Operation board</b><code>#172B52</code></div></div>
+    <h3>Type and shape</h3>
+    <div class="card"><ul class="notes">
+      <li>System type (SF Pro on Apple devices, Inter elsewhere). Sentence case everywhere; code names, versions and JSON stay monospace.</li>
+      <li>Large titles 32–44 px bold with tight tracking; body 15 px; captions 12–13 px in grey.</li>
+      <li>Cards 20–24 px radius on #F5F5F7; inset wells 14 px; capsules for buttons, chips and segmented controls; frosted glass for floating toolbars and sheets.</li>
+      <li>Green iOS switches; Atlas Blue for buttons and links; red only for Atlas Red Team; amber for “needs attention”.</li>
+      <li>Sheets follow iOS Settings: 44 px rows, inset hairlines, grouped lists.</li>
+    </ul></div>
+    <h3>Icons (v9, glass in the macOS 26 style)</h3>
+    <p class="mut">Custom symbols in frosted glass on two-hue gradient squircles. One colour per family; the colour tells you the role.</p>
+    <div class="card"><div class="icons"><figure class="ic"><img src="booking.png" alt="" width="56" height="56" loading="lazy"><figcaption>booking</figcaption></figure><figure class="ic"><img src="calendar.png" alt="" width="56" height="56" loading="lazy"><figcaption>calendar</figcaption></figure><figure class="ic"><img src="check.png" alt="" width="56" height="56" loading="lazy"><figcaption>check</figcaption></figure><figure class="ic"><img src="crew.png" alt="" width="56" height="56" loading="lazy"><figcaption>crew</figcaption></figure><figure class="ic"><img src="deployment.png" alt="" width="56" height="56" loading="lazy"><figcaption>deployment</figcaption></figure><figure class="ic"><img src="door.png" alt="" width="56" height="56" loading="lazy"><figcaption>door</figcaption></figure><figure class="ic"><img src="form.png" alt="" width="56" height="56" loading="lazy"><figcaption>form</figcaption></figure><figure class="ic"><img src="host.png" alt="" width="56" height="56" loading="lazy"><figcaption>host</figcaption></figure><figure class="ic"><img src="hours.png" alt="" width="56" height="56" loading="lazy"><figcaption>hours</figcaption></figure><figure class="ic"><img src="inbox.png" alt="" width="56" height="56" loading="lazy"><figcaption>inbox</figcaption></figure><figure class="ic"><img src="inlet.png" alt="" width="56" height="56" loading="lazy"><figcaption>inlet</figcaption></figure><figure class="ic"><img src="job-done.png" alt="" width="56" height="56" loading="lazy"><figcaption>job done</figcaption></figure><figure class="ic"><img src="missed-call.png" alt="" width="56" height="56" loading="lazy"><figcaption>missed call</figcaption></figure><figure class="ic"><img src="module.png" alt="" width="56" height="56" loading="lazy"><figcaption>module</figcaption></figure><figure class="ic"><img src="notify.png" alt="" width="56" height="56" loading="lazy"><figcaption>notify</figcaption></figure><figure class="ic"><img src="office.png" alt="" width="56" height="56" loading="lazy"><figcaption>office</figcaption></figure><figure class="ic"><img src="operation.png" alt="" width="56" height="56" loading="lazy"><figcaption>operation</figcaption></figure><figure class="ic"><img src="outbound-runner.png" alt="" width="56" height="56" loading="lazy"><figcaption>outbound runner</figcaption></figure><figure class="ic"><img src="outlet.png" alt="" width="56" height="56" loading="lazy"><figcaption>outlet</figcaption></figure><figure class="ic"><img src="personal.png" alt="" width="56" height="56" loading="lazy"><figcaption>personal</figcaption></figure><figure class="ic"><img src="quote.png" alt="" width="56" height="56" loading="lazy"><figcaption>quote</figcaption></figure><figure class="ic"><img src="redteam.png" alt="" width="56" height="56" loading="lazy"><figcaption>redteam</figcaption></figure><figure class="ic"><img src="request-runner.png" alt="" width="56" height="56" loading="lazy"><figcaption>request runner</figcaption></figure><figure class="ic"><img src="review.png" alt="" width="56" height="56" loading="lazy"><figcaption>review</figcaption></figure><figure class="ic"><img src="route.png" alt="" width="56" height="56" loading="lazy"><figcaption>route</figcaption></figure><figure class="ic"><img src="runtime.png" alt="" width="56" height="56" loading="lazy"><figcaption>runtime</figcaption></figure><figure class="ic"><img src="send-inbox.png" alt="" width="56" height="56" loading="lazy"><figcaption>send inbox</figcaption></figure><figure class="ic"><img src="server-runner.png" alt="" width="56" height="56" loading="lazy"><figcaption>server runner</figcaption></figure><figure class="ic"><img src="sort.png" alt="" width="56" height="56" loading="lazy"><figcaption>sort</figcaption></figure><figure class="ic"><img src="sparkle.png" alt="" width="56" height="56" loading="lazy"><figcaption>sparkle</figcaption></figure><figure class="ic"><img src="stage.png" alt="" width="56" height="56" loading="lazy"><figcaption>stage</figcaption></figure><figure class="ic"><img src="summary.png" alt="" width="56" height="56" loading="lazy"><figcaption>summary</figcaption></figure><figure class="ic"><img src="text.png" alt="" width="56" height="56" loading="lazy"><figcaption>text</figcaption></figure><figure class="ic"><img src="variant.png" alt="" width="56" height="56" loading="lazy"><figcaption>variant</figcaption></figure><figure class="ic"><img src="version.png" alt="" width="56" height="56" loading="lazy"><figcaption>version</figcaption></figure><figure class="ic"><img src="wait.png" alt="" width="56" height="56" loading="lazy"><figcaption>wait</figcaption></figure><figure class="ic"><img src="wire.png" alt="" width="56" height="56" loading="lazy"><figcaption>wire</figcaption></figure><figure class="ic"><img src="yearly.png" alt="" width="56" height="56" loading="lazy"><figcaption>yearly</figcaption></figure></div></div>
+    <div class="card tw" style="margin-top:14px"><table class="t"><thead><tr><th>Family</th><th>Gradient</th><th>Used for</th></tr></thead><tbody><tr><td><span class="sw2" style="background:linear-gradient(#7AE184,#36BD56)"></span><b>Begins work</b></td><td><code>#7AE184 → #36BD56</code></td><td>Inlet; customer “When” blocks</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#A09FFF,#5D4BEF)"></span><b>Chooses among options</b></td><td><code>#A09FFF → #5D4BEF</code></td><td>Request runner, Outbound runner, wire</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#5FAEFF,#2462F4)"></span><b>Atlas’s front door</b></td><td><code>#5FAEFF → #2462F4</code></td><td>Product Outlet; customer “Atlas does” blocks</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#67E3D6,#17ADBF)"></span><b>Runs or hosts code</b></td><td><code>#67E3D6 → #17ADBF</code></td><td>Server runner, host, deployment, runtime</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#D99CFF,#9B4EF0)"></span><b>The operation</b></td><td><code>#D99CFF → #9B4EF0</code></td><td>Operation</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#7AD8FF,#2A9AF5)"></span><b>One piece of work</b></td><td><code>#7AD8FF → #2A9AF5</code></td><td>Circuit stage</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#FFC86B,#FF8A22)"></span><b>Reusable code</b></td><td><code>#FFC86B → #FF8A22</code></td><td>Module; customer “Then” blocks</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#FF9FB5,#F25A7B)"></span><b>An alternative</b></td><td><code>#FF9FB5 → #F25A7B</code></td><td>Variant</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#CBD0D8,#8E96A4)"></span><b>Versions</b></td><td><code>#CBD0D8 → #8E96A4</code></td><td>Module version</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#6B6F79,#2F3239)"></span><b>A vendor’s endpoint</b></td><td><code>#6B6F79 → #2F3239</code></td><td>Vendor door</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#FF7D72,#EC3B30)"></span><b>Atlas Red Team</b></td><td><code>#FF7D72 → #EC3B30</code></td><td>Red Team (and nothing else is red)</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#DDB58D,#A97A51)"></span><b>Offices</b></td><td><code>#DDB58D → #A97A51</code></td><td>Office</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#FF92D3,#E0479E)"></span><b>Groups of people</b></td><td><code>#FF92D3 → #E0479E</code></td><td>Crew</td></tr><tr><td><span class="sw2" style="background:linear-gradient(#6CC3FF,#2C7DF6)"></span><b>Inboxes</b></td><td><code>#6CC3FF → #2C7DF6</code></td><td>Inbox</td></tr></tbody></table></div>
+    <h3>Circuit vocabulary</h3>
+    <div class="card tw"><table class="t"><thead><tr><th>Part</th><th>What it is</th><th>Takes in</th><th>Gives back</th></tr></thead><tbody><tr><td><img class="ico" src="inlet.png" alt="" width="28" height="28"><b>Inlet</b></td><td>Starts the work when something happens.</td><td>An event: a click, a form, a schedule or an API call</td><td>A request with what was sent</td></tr><tr><td><img class="ico" src="request-runner.png" alt="" width="28" height="28"><b>Request runner</b></td><td>Tries its options in order and carries the request in.</td><td>The request from the Inlet</td><td>The same request, delivered to the Product Outlet over HTTPS</td></tr><tr><td><img class="ico" src="outlet.png" alt="" width="28" height="28"><b>Product Outlet</b></td><td>Atlas’s front door. Checks who, what and whether.</td><td>A request from a Request runner</td><td>An allowed request, or a clear refusal</td></tr><tr><td><img class="ico" src="server-runner.png" alt="" width="28" height="28"><b>Server runner</b></td><td>Optional. Chooses which server binding runs the job.</td><td>An allowed request</td><td>The request, bound to one server</td></tr><tr><td><img class="ico" src="operation.png" alt="" width="28" height="28"><b>Operation</b></td><td>The named job, like “Contact brief”.</td><td>An allowed request</td><td>One result, or a partial result that says what finished</td></tr><tr><td><img class="ico" src="stage.png" alt="" width="28" height="28"><b>Circuit stage</b></td><td>One piece of required work inside the job.</td><td>Data from the request or an earlier stage</td><td>Its result to the next stage</td></tr><tr><td><img class="ico" src="module.png" alt="" width="28" height="28"><b>Module</b></td><td>Reusable code that a stage runs.</td><td>What its stage hands it</td><td>A result in its contract’s shape</td></tr><tr><td><img class="ico" src="variant.png" alt="" width="28" height="28"><b>Variant</b></td><td>An alternative module for the same job.</td><td>What its stage hands it</td><td>A result in the same shape</td></tr><tr><td><img class="ico" src="version.png" alt="" width="28" height="28"><b>Module version</b></td><td>An exact, frozen release of a module.</td><td>Published code</td><td>A release a deployment can use</td></tr><tr><td><img class="ico" src="outbound-runner.png" alt="" width="28" height="28"><b>Outbound runner</b></td><td>Calls an outside service, in order of preference.</td><td>The stage’s request for outside help</td><td>The vendor’s answer, mapped back to the stage</td></tr><tr><td><img class="ico" src="door.png" alt="" width="28" height="28"><b>Vendor door</b></td><td>The outside service’s own endpoint.</td><td>A request mapped to the vendor’s format</td><td>The vendor’s response</td></tr><tr><td><img class="ico" src="redteam.png" alt="" width="28" height="28"><b>Atlas Red Team</b></td><td>Checks every red lock. Can’t be turned off.</td><td>Caller, action, target and scope</td><td>Allow or deny</td></tr></tbody></table></div>
+    <h3>Wire protocols</h3>
+    <div class="card tw"><table class="t"><thead><tr><th>Protocol</th><th>When it works</th><th>When it fails</th></tr></thead><tbody><tr><td><span class="pdot" style="--c:#2F5BFF"></span><b>HTTPS</b><small>Request and answer over the network</small></td><td>A request goes out and one answer comes back.</td><td>No answer in time: retry, then fall back to the next rung where the policy allows. An answer lost after the work was done is an unknown outcome, not a failure: check before sending again.</td></tr><tr><td><span class="pdot" style="--c:#C9A15A"></span><b>In-process</b><small>A call inside Atlas</small></td><td>One part calls the next inside Atlas; the result comes back on the same wire.</td><td>The called module crashes. The stage ends with a partial result; nothing is sent twice.</td></tr><tr><td><span class="pdot" style="--c:#F2A65A"></span><b>Record reference</b><small>A stored link, not a call</small></td><td>A stage reads the exact version, deployment or host it points at.</td><td>The record it points at is missing. The stage can’t start and is blocked.</td></tr><tr><td><span class="pdot" style="--c:#FF3B30"></span><b>Permission check</b><small>Atlas Red Team decides</small></td><td>The red lock asks Red Team and enforces allow or deny before the work runs.</td><td>Denied: it stops at once. No other rung or variant is tried.</td></tr><tr><td><span class="pdot" style="--c:#5E6470"></span><b>Database (SQL)</b><small>A transaction in the database</small></td><td>Reads and writes run inside one transaction that commits as a whole.</td><td>A conflict (a slot already taken) rolls the whole transaction back. A database error is not retried at another endpoint.</td></tr><tr><td><span class="pdot" style="--c:#8E96A4"></span><b>Store adapter</b><small>Cache and output storage</small></td><td>A read names its key, scope and freshness and comes back as hit, miss or bypass.</td><td>The store is down: Atlas renders fresh output (or keeps the last good release) and records the store failure.</td></tr><tr><td><span class="pdot" style="--c:#30B0C7"></span><b>Stream (SSE)</b><small>One-way stream over HTTP</small></td><td>The answer streams back piece by piece while it is written.</td><td>The stream stops partway. What arrived is kept and the turn says it was cut short. The provider is not switched once streaming has begun.</td></tr><tr><td><span class="pdot" style="--c:#5856D6"></span><b>Live (WSS)</b><small>Two-way live connection</small></td><td>A live signal tells open screens that something changed; they fetch the change over HTTPS.</td><td>The connection drops. On reconnect the screen asks for the current release instead of assuming every message arrived.</td></tr><tr><td><span class="pdot" style="--c:#AF52DE"></span><b>Voice (WebRTC)</b><small>Live audio session</small></td><td>Audio flows both ways in a private room after a room token is issued over HTTPS.</td><td>The audio connection drops. The room ends cleanly; the conversation record keeps what was said.</td></tr></tbody></table></div>
+    <h3>Failure kinds</h3>
+    <div class="card tw"><table class="t"><thead><tr><th>Kind</th><th>What happens</th></tr></thead><tbody><tr><td><code>timeout</code></td><td>No answer in time; retry, then the next rung</td></tr><tr><td><code>all-fail</code></td><td>Every rung fails</td></tr><tr><td><code>unknown</code></td><td>Unknown outcome: check before sending again</td></tr><tr><td><code>conflict</code></td><td>Conflict: the transaction rolls back</td></tr><tr><td><code>deny</code></td><td>Denied by Red Team: stops at once</td></tr><tr><td><code>build-fail</code></td><td>Build fails: the last good release stays live</td></tr><tr><td><code>stale</code></td><td>A late older build is refused</td></tr><tr><td><code>store-down</code></td><td>Store unavailable: build fresh or keep the last good release</td></tr><tr><td><code>miss</code></td><td>Cache miss: reuse what’s valid, render the rest</td></tr><tr><td><code>stream-cut</code></td><td>Stream cut short: keep what arrived</td></tr><tr><td><code>drop</code></td><td>Connection drops: reconnect and catch up</td></tr><tr><td><code>defer</code></td><td>Unsafe to apply now: offer a refresh instead</td></tr><tr><td><code>lease</code></td><td>Second session: take over, the old one is fenced off</td></tr><tr><td><code>put-back</code></td><td>Probe fails: put everything back</td></tr></tbody></table></div>
+    <h3>Door kinds</h3>
+    <div class="card tw"><table class="t"><thead><tr><th>Kind</th><th>What it is</th></tr></thead><tbody><tr><td><code>vendor</code></td><td>A vendor’s endpoint</td></tr><tr><td><code>database</code></td><td>The database</td></tr><tr><td><code>store</code></td><td>An output store</td></tr><tr><td><code>live</code></td><td>Live delivery service</td></tr><tr><td><code>media</code></td><td>A voice room</td></tr><tr><td><code>host</code></td><td>A hosting provider</td></tr><tr><td><code>screens</code></td><td>Open browser screens</td></tr></tbody></table></div>
+  </section>
+
+  <section id="rules">
+    <h2>Rules</h2>
+    <p>Decisions from the briefs and from design review that every screen follows.</p>
+    <div class="rules">
+      <div class="card"><h4>Honest outcomes (Section 3)</h4><ul>
+        <li>A retry that recovered stays invisible to the tenant.</li><li>A failed save shows unsaved work; never show Saved before it is durable.</li>
+        <li>A failed booking never appears confirmed.</li><li>A failed publication keeps the prior live release and says so.</li>
+        <li>An answer lost on the way back is an unknown outcome: check before allowing a resend.</li></ul></div>
+      <div class="card"><h4>Cache (Section 2)</h4><ul>
+        <li>One Cache tile per website: a quick switch and Publish; View holds costs, usage, active and pending settings, overrides and build status.</li>
+        <li>Pages and features inherit the website default unless overridden.</li>
+        <li>Form submissions, booking times, chat and calls always stay live; private or personalised output never shares HTML.</li>
+        <li>Publish, prepare, then activate. An older build never replaces a newer release; retry targets the same revision.</li>
+        <li>No invented provider bills: cost shows measured usage and labelled estimates.</li></ul></div>
+      <div class="card"><h4>Red Team</h4><ul>
+        <li>Red locks enforce at protected points; a UI lock only previews.</li><li>A denial stops at once; no other rung or variant is tried.</li>
+        <li>Identity and input validation are separate from authorization.</li></ul></div>
+      <div class="card"><h4>Content and data</h4><ul>
+        <li>Northline Home Services is fictional and always marked SAMPLE.</li><li>No vault entry names, keys, repo paths, commit hashes, database function names or real IDs on shareable pages.</li>
+        <li>Vendors appear as colour monograms, not their logos.</li><li>Plain words: name things by what people recognise.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="open">
+    <h2>Open items</h2>
+    <p>Marked in the apps as amber “Still to specify”, or deferred by the briefs.</p>
+    <div class="card"><ul class="notes">
+      <li>Stage ordering and data bindings; allowed fallback outcomes; write-result recovery; coherent run plans.</li>
+      <li>How a skipped stage reports; whether a blocked stage stops the whole run.</li>
+      <li>Activation, rollback and retention, including what runs after a recall or a failed activation; decision freshness and revocation; which effects run during a test.</li>
+      <li>Section 2: the first storage provider and its measured cost, budgets and retention; page templates and scheduled publishing are deferred.</li>
+      <li>Section 3: the notification centre UI, native apps and PDF import are outside this closure; exact budgets and host selection are engineering work.</li>
+      <li>Sections 4–6: portable rendering, classic blocks, permissions and rollout.</li>
+    </ul></div>
+    <p class="foot">Built from the Atlas Circuit Model partner brief v3, the Atlas Red Team brief, the Public Website Cache circuit brief, and the Section 2 and Section 3 decision records. Source on the Desktop in atlas-circuit-site (README.md lists every route and file). Screens captured Oct 29, 2026.</p>
+  </section>
+</div>
+<div class="lb" hidden><button type="button" aria-label="Close">✕</button><img alt=""></div>
+<script>
+(() => {
+  const lb = document.querySelector('.lb'), im = lb.querySelector('img');
+  const close = () => { lb.hidden = true; im.removeAttribute('src'); };
+  document.querySelectorAll('.shot').forEach((b) => b.addEventListener('click', () => { im.src = b.dataset.src; im.alt = b.getAttribute('aria-label') || ''; lb.hidden = false; lb.scrollTop = 0; lb.querySelector('button').focus(); }));
+  lb.addEventListener('click', (e) => { if (e.target === lb || e.target.tagName === 'BUTTON') close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) close(); });
+})();
+</script>
+
+</body>
+</html>
