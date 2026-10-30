@@ -220,8 +220,8 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 64
       <figcaption><b>The sample, as hardware</b><span>Aluminium box = Atlas. Blue board = the Operation. Graphite switches = runners (a chain per switch, a port per rung): docked to the device (Request runner) and outside the Operation (Outbound runners). Cards = modules, labels = versions, boxes outside = vendor doors.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-switches.jpg" aria-label="Open Rung and chain = a network switch full size"><img src="b-switches.jpg" alt="Rung and chain = a network switch" loading="lazy"></button>
       <figcaption><b>Rung and chain = a network switch</b><span>Each Outbound runner is a switch outside the Operation: a port per rung, patched to its own wall port and cabled to its own box. Here every rung fails: each rung’s cable turns red, and every attempt goes to the Log.</span></figcaption></figure>
-    <figure><button class="shot" type="button" data-src="b-displays.jpg" aria-label="Open Vendor doors answer on a display full size"><img src="b-displays.jpg" alt="Vendor doors answer on a display" loading="lazy"></button>
-      <figcaption><b>Vendor doors answer on a display</b><span>Each box has a black-glass screen on a stand: its last answer lit in the answer’s colour (COMMIT green, 503 red), with a light bar on the box in the same colour. In the full view, the answers also line up in a column beside the boxes, each joined to its box.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-displays.jpg" aria-label="Open Answer receipts full size"><img src="b-displays.jpg" alt="Answer receipts" loading="lazy"></button>
+      <figcaption><b>Answer receipts</b><span>What each box answered glows through its top in the answer’s colour (COMMIT green, 503 red, MISS cyan, CUT amber), with a pool of the same light under it. Beside the board, a receipt per box: what came back, how long it took, which try it was, and what Atlas did next. The newest prints in full; tap another to pin it open.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-parts.jpg" aria-label="Open What each module does full size"><img src="b-parts.jpg" alt="What each module does" loading="lazy"></button>
       <figcaption><b>What each module does</b><span>The part on each card: Write (commit lever down, green), Broadcast (mast rings), Send (radio antenna), Check (can with a shutter). Nine kinds in all.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-gates.jpg" aria-label="Open Product Outlet: three gates full size"><img src="b-gates.jpg" alt="Product Outlet: three gates" loading="lazy"></button>
@@ -229,13 +229,13 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 64
     <figure><button class="shot" type="button" data-src="b-pins.jpg" aria-label="Open Switch close-up full size"><img src="b-pins.jpg" alt="Switch close-up" loading="lazy"></button>
       <figcaption><b>Switch close-up</b><span>In from the Operation’s edge connector, a white jack per rung with its link light, the Log pad, patch cords to the wall.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-inspector.jpg" aria-label="Open Inspector full size"><img src="b-inspector.jpg" alt="Inspector" loading="lazy"></button>
-      <figcaption><b>Inspector</b><span>What the object is, then its inlets and outlets from the real wires: In, Rung 1 → Resend, Rung 2 → Mailgun, Log.</span></figcaption></figure>
+      <figcaption><b>Inspector</b><span>Tap a box: what it is, then every receipt from this run (Resend 503 twice, then Mailgun 503) with the time, the try and what Atlas did next, then its inlets and outlets from the real wires.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-deny.jpg" aria-label="Open Red Team denies full size"><img src="b-deny.jpg" alt="Red Team denies" loading="lazy"></button>
       <figcaption><b>Red Team denies</b><span>The Access gate glows red and a red shutter drops after the gateway; that wire turns red; nothing downstream runs.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-hero-booking.jpg" aria-label="Open Booking full size"><img src="b-hero-booking.jpg" alt="Booking" loading="lazy"></button>
       <figcaption><b>Booking</b><span>Three switches: database (SQL), live delivery (WSS) and email (HTTPS).</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-slot.jpg" aria-label="Open Slot just taken full size"><img src="b-fail-slot.jpg" alt="Slot just taken" loading="lazy"></button>
-      <figcaption><b>Slot just taken</b><span>ROLLBACK on the database display, a red pulse back, the cable stays red. Nothing committed.</span></figcaption></figure>
+      <figcaption><b>Slot just taken</b><span>ROLLBACK glows red on the database; its receipt says nothing was saved and no other endpoint is tried. A red pulse runs back and the cable stays red.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-hero-publish.jpg" aria-label="Open Publish and build full size"><img src="b-hero-publish.jpg" alt="Publish and build" loading="lazy"></button>
       <figcaption><b>Publish and build</b><span>Output store (PUT), release activation over live delivery.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-build.jpg" aria-label="Open Build fails full size"><img src="b-fail-build.jpg" alt="Build fails" loading="lazy"></button>
@@ -243,7 +243,7 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 64
     <figure><button class="shot" type="button" data-src="b-hero-chat.jpg" aria-label="Open Chat full size"><img src="b-hero-chat.jpg" alt="Chat" loading="lazy"></button>
       <figcaption><b>Chat</b><span>The reply streams back (SSE) from the AI vendor.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-stream.jpg" aria-label="Open Stream cut short full size"><img src="b-fail-stream.jpg" alt="Stream cut short" loading="lazy"></button>
-      <figcaption><b>Stream cut short</b><span>CUT on the display; the partial reply is kept; the cable turns red; no provider switch.</span></figcaption></figure>
+      <figcaption><b>Stream cut short</b><span>CUT glows amber on the box; the receipt says the stream stopped after 4 of 12 parts and the partial reply is kept, with no provider switch. The cable turns red.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-hero-collab.jpg" aria-label="Open Edit together full size"><img src="b-hero-collab.jpg" alt="Edit together" loading="lazy"></button>
       <figcaption><b>Edit together</b><span>Room lease on the outlet; other editors as a row of screens.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-takeover.jpg" aria-label="Open Same person opens it twice full size"><img src="b-fail-takeover.jpg" alt="Same person opens it twice" loading="lazy"></button>
@@ -262,7 +262,7 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 64
       <tr><td>Card / its part / its label</td><td>Module (or Variant) / what it does (check, key, write, look up, build, send, stream, broadcast, switch) / Module version</td><td>Gold contacts in the slot</td></tr>
       <tr><td>Graphite switches (outside the Operation)</td><td>Outbound runners: a chain per switch</td><td>In, a jack per rung patched to its wall port, Log pad</td></tr>
       <tr><td>Log</td><td>Every rung attempt, newest first</td><td>A trace in from each switch</td></tr>
-      <tr><td>Boxes outside</td><td>Vendor doors by kind: vendor slab, database, store, live delivery, voice room, host, open screens</td><td>Their port, on their rung’s cable; a display with their last answer</td></tr>
+      <tr><td>Boxes outside</td><td>Vendor doors by kind: vendor slab, database, store, live delivery, voice room, host, open screens</td><td>Their port, on their rung’s cable; their last answer glows through the top, with a receipt beside the board</td></tr>
     </tbody></table></div>
   </section>
 
