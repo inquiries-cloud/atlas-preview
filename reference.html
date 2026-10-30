@@ -214,45 +214,55 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 64
 
   <section id="board">
     <h2>3D board</h2>
-    <p>The circuit as real hardware, rendered live in the browser (WebGL2, no libraries). Every object stands for one thing and every connector carries one thing. Calls run in blue, results come back in green.</p>
+    <p>The circuit as real hardware, rendered live in the browser (WebGL2, no libraries). Every object stands for one thing and every connector carries one thing. Calls run in blue; answers come back in their colour (green worked, blue not an error, amber partial, red error). A wire that failed turns red. Runners sit where the brief puts them: between the Inlet and the Product Outlet, between the Outlet and the Operation (optional), and between a stage and its vendor door.</p>
     <div class="grid ">
     <figure><button class="shot" type="button" data-src="b-hero-contact.jpg" aria-label="Open The sample, as hardware full size"><img src="b-hero-contact.jpg" alt="The sample, as hardware" loading="lazy"></button>
-      <figcaption><b>The sample, as hardware</b><span>Aluminium box = Atlas. Graphite board = Atlas’s own (Product Outlet, Red Team). Blue board = the Operation. Cards = modules, labels = versions, boxes outside = vendor doors.</span></figcaption></figure>
-    <figure><button class="shot" type="button" data-src="b-pins.jpg" aria-label="Open Inlets and outlets full size"><img src="b-pins.jpg" alt="Inlets and outlets" loading="lazy"></button>
-      <figcaption><b>Inlets and outlets</b><span>Every part prints its pads: In, Out, red Check, Runs, Reach out, Rung n. Every trace starts and ends on a pad.</span></figcaption></figure>
+      <figcaption><b>The sample, as hardware</b><span>Aluminium box = Atlas. Blue board = the Operation. Graphite switches = runners (a chain per switch, a port per rung): docked to the device (Request runner) and outside the Operation (Outbound runners). Cards = modules, labels = versions, boxes outside = vendor doors.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-switches.jpg" aria-label="Open Rung and chain = a network switch full size"><img src="b-switches.jpg" alt="Rung and chain = a network switch" loading="lazy"></button>
+      <figcaption><b>Rung and chain = a network switch</b><span>Each Outbound runner is a switch outside the Operation: a port per rung, patched to its own wall port and cabled to its own box. Here every rung fails: each rung’s cable turns red, and every attempt goes to the Log.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-displays.jpg" aria-label="Open Vendor doors answer on a display full size"><img src="b-displays.jpg" alt="Vendor doors answer on a display" loading="lazy"></button>
+      <figcaption><b>Vendor doors answer on a display</b><span>Each box shows what it last answered, in the colour of the answer: COMMIT green, 503 Unavailable red. The answer travels back down the cable in the same colour.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-parts.jpg" aria-label="Open What each module does full size"><img src="b-parts.jpg" alt="What each module does" loading="lazy"></button>
+      <figcaption><b>What each module does</b><span>The part on each card: Write (commit lever down, green), Broadcast (mast rings), Send (radio antenna), Check (can with a shutter). Nine kinds in all.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-gates.jpg" aria-label="Open Product Outlet: three gates full size"><img src="b-gates.jpg" alt="Product Outlet: three gates" loading="lazy"></button>
+      <figcaption><b>Product Outlet: three gates</b><span>Identity, Data, Access, passed in turn. Each glass leaf lifts green when it passes; Access is the red lock that asks Red Team.</span></figcaption></figure>
+    <figure><button class="shot" type="button" data-src="b-pins.jpg" aria-label="Open Switch close-up full size"><img src="b-pins.jpg" alt="Switch close-up" loading="lazy"></button>
+      <figcaption><b>Switch close-up</b><span>In from the Operation’s edge connector, a white jack per rung with its link light, the Log pad, patch cords to the wall.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-inspector.jpg" aria-label="Open Inspector full size"><img src="b-inspector.jpg" alt="Inspector" loading="lazy"></button>
-      <figcaption><b>Inspector</b><span>What the object is on the board, then its inlets and outlets built from the real wires.</span></figcaption></figure>
+      <figcaption><b>Inspector</b><span>What the object is, then its inlets and outlets from the real wires: In, Rung 1 → Resend, Rung 2 → Mailgun, Log.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-deny.jpg" aria-label="Open Red Team denies full size"><img src="b-deny.jpg" alt="Red Team denies" loading="lazy"></button>
-      <figcaption><b>Red Team denies</b><span>A red shutter drops after the gateway; nothing downstream runs; the Result light shows refused.</span></figcaption></figure>
+      <figcaption><b>Red Team denies</b><span>The Access gate glows red and a red shutter drops after the gateway; that wire turns red; nothing downstream runs.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-hero-booking.jpg" aria-label="Open Booking full size"><img src="b-hero-booking.jpg" alt="Booking" loading="lazy"></button>
-      <figcaption><b>Booking</b><span>Database box (SQL transaction ring), live delivery puck (WSS heartbeat), email vendor boxes.</span></figcaption></figure>
+      <figcaption><b>Booking</b><span>Three switches: database (SQL), live delivery (WSS) and email (HTTPS).</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-slot.jpg" aria-label="Open Slot just taken full size"><img src="b-fail-slot.jpg" alt="Slot just taken" loading="lazy"></button>
-      <figcaption><b>Slot just taken</b><span>Conflict: the transaction ring flashes red and a rollback pulse returns. Nothing committed.</span></figcaption></figure>
+      <figcaption><b>Slot just taken</b><span>ROLLBACK on the database display, a red pulse back, the cable stays red. Nothing committed.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-hero-publish.jpg" aria-label="Open Publish and build full size"><img src="b-hero-publish.jpg" alt="Publish and build" loading="lazy"></button>
-      <figcaption><b>Publish and build</b><span>Output store box with hit/miss lights; release activation over live delivery.</span></figcaption></figure>
+      <figcaption><b>Publish and build</b><span>Output store (PUT), release activation over live delivery.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-build.jpg" aria-label="Open Build fails full size"><img src="b-fail-build.jpg" alt="Build fails" loading="lazy"></button>
-      <figcaption><b>Build fails</b><span>The build card goes red; the device shows “v10 still live”.</span></figcaption></figure>
+      <figcaption><b>Build fails</b><span>The build card and its trace turn red; the device shows “v10 still live”.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-hero-chat.jpg" aria-label="Open Chat full size"><img src="b-hero-chat.jpg" alt="Chat" loading="lazy"></button>
       <figcaption><b>Chat</b><span>The reply streams back (SSE) from the AI vendor.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-stream.jpg" aria-label="Open Stream cut short full size"><img src="b-fail-stream.jpg" alt="Stream cut short" loading="lazy"></button>
-      <figcaption><b>Stream cut short</b><span>The stream stops midway; the partial reply is kept; no provider switch.</span></figcaption></figure>
+      <figcaption><b>Stream cut short</b><span>CUT on the display; the partial reply is kept; the cable turns red; no provider switch.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-hero-collab.jpg" aria-label="Open Edit together full size"><img src="b-hero-collab.jpg" alt="Edit together" loading="lazy"></button>
       <figcaption><b>Edit together</b><span>Room lease on the outlet; other editors as a row of screens.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-takeover.jpg" aria-label="Open Same person opens it twice full size"><img src="b-fail-takeover.jpg" alt="Same person opens it twice" loading="lazy"></button>
       <figcaption><b>Same person opens it twice</b><span>The old tab is fenced off; everyone else keeps editing.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-fail-drop.jpg" aria-label="Open Live connection drops full size"><img src="b-fail-drop.jpg" alt="Live connection drops" loading="lazy"></button>
-      <figcaption><b>Live connection drops</b><span>The WSS light dies; on reconnect the browser catches up to the current release.</span></figcaption></figure>
+      <figcaption><b>Live connection drops</b><span>CLOSED: the cable turns red, then clears on reconnect (RESYNC) and the browser catches up.</span></figcaption></figure>
     <figure><button class="shot" type="button" data-src="b-phone.jpg" aria-label="Open Board on a phone full size"><img src="b-phone.jpg" alt="Board on a phone" loading="lazy"></button>
-      <figcaption><b>Board on a phone</b><span>Portrait layout: the same parts stacked, labels kept readable.</span></figcaption></figure></div>
+      <figcaption><b>Board on a phone</b><span>Portrait layout: the same parts, the device’s switch on its left.</span></figcaption></figure></div>
     <h3>What each object is</h3>
     <div class="card tw"><table class="t"><thead><tr><th>Object</th><th>Stands for</th><th>Its connectors</th></tr></thead><tbody>
-      <tr><td>Aluminium box</td><td>Atlas. Inside: in-process traces. Through the wall: network cables.</td><td>Front port (HTTPS in), back ports (one per outbound rung)</td></tr>
-      <tr><td>Device on the desk</td><td>Where the request starts (the tenant’s site, the editor, the dashboard)</td><td>Button = Inlet, chip = Request runner (one light per rung), Result light + small display</td></tr>
-      <tr><td>Graphite board</td><td>Atlas’s own board</td><td>Product Outlet gateway (In, Out, red Check; gate lights identity · data · access), Server runner, Atlas Red Team chip</td></tr>
-      <tr><td>Blue board</td><td>The Operation</td><td>Edge connectors In and Check; contract chip (In, Out, Check); numbered slots = stages (In, Out, Runs, Reach out, Check)</td></tr>
-      <tr><td>Card / its label</td><td>Module (or Variant) / Module version (record reference)</td><td>Gold contacts in the slot</td></tr>
-      <tr><td>Network chip</td><td>Outbound runner</td><td>In, Rung 1…n to the back ports</td></tr>
-      <tr><td>Boxes outside</td><td>Vendor doors by kind: vendor slab, database (stacked discs), store (drive bays), live delivery (puck), voice room, host, open screens</td><td>Their port, cabled by protocol</td></tr>
+      <tr><td>Aluminium box</td><td>Atlas. Inside: in-process traces. Through the wall: network cables.</td><td>Front ports (one per Request runner rung), right-wall ports (one per Outbound runner rung)</td></tr>
+      <tr><td>Device on the desk</td><td>Where the request starts (the tenant’s site, the editor, the dashboard)</td><td>Button = Inlet, Result light + small display</td></tr>
+      <tr><td>Graphite switch (docked to the device)</td><td>Request runner: a chain</td><td>A white jack per rung with a link light, each cabled to its own front port</td></tr>
+      <tr><td>Three gates</td><td>Product Outlet (identity · data · access)</td><td>In, Out, red Check; Access is the red lock</td></tr>
+      <tr><td>Blue board</td><td>The Operation</td><td>Edge connectors In and Check (left) and Reach out (right); contract chip; numbered slots = stages</td></tr>
+      <tr><td>Card / its part / its label</td><td>Module (or Variant) / what it does (check, key, write, look up, build, send, stream, broadcast, switch) / Module version</td><td>Gold contacts in the slot</td></tr>
+      <tr><td>Graphite switches (outside the Operation)</td><td>Outbound runners: a chain per switch</td><td>In, a jack per rung patched to its wall port, Log pad</td></tr>
+      <tr><td>Log</td><td>Every rung attempt, newest first</td><td>A trace in from each switch</td></tr>
+      <tr><td>Boxes outside</td><td>Vendor doors by kind: vendor slab, database, store, live delivery, voice room, host, open screens</td><td>Their port, on their rung’s cable; a display with their last answer</td></tr>
     </tbody></table></div>
   </section>
 
